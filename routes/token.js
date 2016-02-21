@@ -1,0 +1,37 @@
+import jwt from "jwt-simple";
+import util from "util";
+
+module.exports = app => {
+  const cfg = app.libs.config;
+  const Users = app.db.models.Users;
+
+  app.post("/token", (req, res) => {
+    if (req.body.email && req.body.password) {
+      const email = req.body.email;
+      const password = req.body.password;
+
+      Users.findOne({ where: { email: email } })
+        .then(user => {
+          if (!user) {
+            res.sendStatus(401);
+            return;
+          }
+
+          if (Users.isPassword(user.password, password)) {
+            const payload = { id: user.id };
+            res.json({
+              token: jwt.encode(payload, cfg.jwtSecret)
+            });
+          } else {
+            res.sendStatus(401);
+          }
+        })
+        .catch(error => {
+          res.sendStatus(401);
+        });
+
+    } else {
+      res.sendStatus(401);
+    }
+  });
+};
