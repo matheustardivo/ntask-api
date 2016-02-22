@@ -11,5 +11,5 @@ module.exports = {
     }
   },
   jwtSecret: "NTALK_TEST",
-  jwtSession: { session: false }
+  jwtSession: {session: false}
 };

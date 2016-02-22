@@ -4,12 +4,13 @@ describe("Routes: Token", () => {
   describe("POST /token", () => {
     beforeEach(done => {
       Users
-        .destroy({ where: {} })
+        .destroy({where: {}})
         .then(() => Users.create({
           name: "John",
           email: "john@mail.net",
           password: "12345"
-        }).then(done()));
+        }))
+        .then(done());
     });
 
     describe("status 200", () => {
@@ -31,8 +32,8 @@ describe("Routes: Token", () => {
 
     describe("status 401", () => {
       it("throws error when password is incorrect", done => {
-        request.post("/token").
-          send({
+        request.post("/token")
+          .send({
             email: "john@mail.net",
             password: "WRONG PASSWORD"
           })

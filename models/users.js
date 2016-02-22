@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import util from "util";
 
 module.exports = (sequelize, DataType) => {
   const Users = sequelize.define("Users", {
@@ -38,7 +37,7 @@ module.exports = (sequelize, DataType) => {
       }
     },
     classMethods: {
-      associate: (models) => {
+      associate: models => {
         Users.hasMany(models.Tasks);
       },
       isPassword: (encodedPassword, password) => {
