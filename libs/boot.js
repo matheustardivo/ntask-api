@@ -5,5 +5,8 @@ module.exports = app => {
         console.log(`NTask API running at port ${app.get("port")}`);
       });
     });
+
+  } else {
+    app.db.sequelize.sync().done();
   }
 };
