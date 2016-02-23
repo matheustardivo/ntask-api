@@ -35,3 +35,6 @@ jspm_packages
 
 # sqlite3 databases
 *.sqlite
+
+# Apidocs
+public/apidoc
